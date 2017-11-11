@@ -4,8 +4,8 @@
 extern crate rocket;
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+fn index() -> String {
+    "Hello, world!".to_string()
 }
 
 fn main() {
