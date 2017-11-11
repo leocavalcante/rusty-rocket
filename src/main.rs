@@ -17,12 +17,12 @@ use std::collections::HashMap;
 use url::form_urlencoded::Parse;
 use url::Url;
 
-struct AccessToken<'r>(&'r str);
+struct AccessToken(String);
 
-impl<'a, 'r> FromRequest<'a, 'r> for AccessToken<'r> {
+impl<'a, 'r> FromRequest<'a, 'r> for AccessToken {
     type Error = ();
 
-    fn from_request(request: &'a Request<'r>) -> request::Outcome<AccessToken<'r>, ()> {
+    fn from_request(request: &'a Request<'r>) -> request::Outcome<AccessToken, ()> {
         let uri: &URI = request.uri();
         let uri_str: &str = uri.as_str();
         let url_str: String = format!("{}{}", "fakescheme:/", uri_str);
@@ -34,8 +34,8 @@ impl<'a, 'r> FromRequest<'a, 'r> for AccessToken<'r> {
         };
 
         let pairs: Parse = url.query_pairs();
-        let query_hash: &'r HashMap<String, String> = pairs.into_owned().collect();
-        let access_token: &str = query_hash.get("access_token").unwrap();
+        let query_hash: HashMap<String, String> = pairs.into_owned().collect();
+        let access_token: String = query_hash.get("access_token").unwrap().to_string();
 
         Outcome::Success(AccessToken(access_token))
     }
