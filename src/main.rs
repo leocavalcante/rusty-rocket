@@ -3,9 +3,9 @@
 
 extern crate rocket;
 
-#[get("/")]
-fn index() -> String {
-    "Hello, world!".to_string()
+#[get("/hello/<name>")]
+fn index(name: String) -> String {
+    format!("Hello {}", name)
 }
 
 fn main() {
