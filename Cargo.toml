@@ -6,3 +6,6 @@ authors = ["leocavalcante <lc@leocavalcante.com>"]
 [dependencies]
 rocket = "0.3.3"
 rocket_codegen = "0.3.3"
+url = "1.6.0"
+log = "0.3"
+simple_logger = "0.3.1"
